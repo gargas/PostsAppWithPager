@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_nav_graph"
+    app:startDestination="@id/postRxFragment">
+
+    <fragment
+        android:id="@+id/postRxFragment"
+        android:name="com.gargas.recyclerProject.ui.PostRxFragment"
+        android:label="PostRxFragment" />
+
+
+    <fragment
+        android:id="@+id/postRxRemoteFragment"
+        android:name="com.gargas.recyclerProject.ui.PostRxRemoteFragment"
+        android:label="PostRxRemoteFragment" />
+
+</navigation>

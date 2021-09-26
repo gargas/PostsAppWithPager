@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MainActivity</string>
+    <string name="title">Posts</string>
+    <string name="error">Error</string>
+    <string name="cancel">Cancel</string>
+    <string name="retry">Retry</string>
+    <string name="post_rx">Posts</string>
+    <string name="post_rx_remote_mediator">Posts With Remote Mediator</string>
+</resources>
