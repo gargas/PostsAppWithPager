@@ -32,7 +32,7 @@ data class Posts(
     @Parcelize
     @Entity(tableName = "post_remote_keys")
     data class PostsRemoteKeys(
-        @PrimaryKey val movieId: Long,
+        @PrimaryKey val id: Long,
         val prevKey: Int?,
         val nextKey: Int?
     ) : Parcelable

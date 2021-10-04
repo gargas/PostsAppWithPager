@@ -13,7 +13,7 @@ import retrofit2.http.Query
 interface APIService {
 
     @GET("posts")
-    fun popularMovieRx(
+    fun popularPostRx(
         @Query("page") page:Int
 
     ) : Single<GetPostsResponse>

@@ -7,7 +7,6 @@ import com.gargas.recyclerProject.network.APIService
 import com.gargas.recyclerProject.repository.db.mapping.PostsMapper
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import retrofit2.http.Url
 
 class GetPostsRxPagingSource(
     private val service: APIService,
@@ -17,7 +16,7 @@ class GetPostsRxPagingSource(
     override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, Posts.Data>> {
         val position = params.key ?: 1
 
-        return service.popularMovieRx(position)
+        return service.popularPostRx(position)
             .subscribeOn(Schedulers.io())
             .map { mapper.transform(it) }
             .map { toLoadResult(it, position) }

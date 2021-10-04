@@ -8,8 +8,10 @@ import androidx.paging.rxjava2.cachedIn
 import com.gargas.recyclerProject.models.Posts
 import com.gargas.recyclerProject.repository.GetPostsRxRepository
 import io.reactivex.Flowable
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class GetPostsRxViewModel(private val repository: GetPostsRxRepository) : ViewModel() {
+    @ExperimentalCoroutinesApi
     fun getPosts(): Flowable<PagingData<Posts.Data>> {
         return repository
             .getPosts()

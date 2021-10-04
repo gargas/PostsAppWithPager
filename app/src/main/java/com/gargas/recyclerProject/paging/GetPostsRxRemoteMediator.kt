@@ -49,7 +49,7 @@ class GetPostsRxRemoteMediator(
                 if (page == INVALID_PAGE) {
                     Single.just(MediatorResult.Success(endOfPaginationReached = true))
                 } else {
-                    service.popularMovieRx(page = page)
+                    service.popularPostRx(page = page)
                         .map { mapper.transform(it) }
                         .map { insertToDb(page, loadType, it) }
                         .map<MediatorResult> { MediatorResult.Success(endOfPaginationReached = it.endOfPage) }
@@ -68,13 +68,13 @@ class GetPostsRxRemoteMediator(
         try {
             if (loadType == LoadType.REFRESH) {
                 database.postRemoteKeysRxDao().clearRemoteKeys()
-                database.postsRxDao().clearMovies()
+                database.postsRxDao().clearPosts()
             }
 
             val prevKey = if (page == 1) null else page - 1
             val nextKey = if (data.endOfPage) null else page + 1
             val keys = data.posts.map {
-                Posts.PostsRemoteKeys(movieId = it.id, prevKey = prevKey, nextKey = nextKey)
+                Posts.PostsRemoteKeys(id = it.id, prevKey = prevKey, nextKey = nextKey)
             }
             database.postRemoteKeysRxDao().insertAll(keys)
             database.postsRxDao().insertAll(data.posts)
@@ -89,20 +89,20 @@ class GetPostsRxRemoteMediator(
 
     private fun getRemoteKeyForLastItem(state: PagingState<Int, Posts.Data>): Posts.PostsRemoteKeys? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.let { repo ->
-            database.postRemoteKeysRxDao().remoteKeysByMovieId(repo.id)
+            database.postRemoteKeysRxDao().remoteKeysByPostId(repo.id)
         }
     }
 
     private fun getRemoteKeyForFirstItem(state: PagingState<Int, Posts.Data>): Posts.PostsRemoteKeys? {
-        return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()?.let { movie ->
-            database.postRemoteKeysRxDao().remoteKeysByMovieId(movie.id)
+        return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()?.let { data ->
+            database.postRemoteKeysRxDao().remoteKeysByPostId(data.id)
         }
     }
 
     private fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, Posts.Data>): Posts.PostsRemoteKeys? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { id ->
-                database.postRemoteKeysRxDao().remoteKeysByMovieId(id)
+                database.postRemoteKeysRxDao().remoteKeysByPostId(id)
             }
         }
     }

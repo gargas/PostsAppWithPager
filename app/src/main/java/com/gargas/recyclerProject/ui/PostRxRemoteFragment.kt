@@ -14,25 +14,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gargas.recyclerProject.Injection
 import com.gargas.recyclerProject.R
 import com.gargas.recyclerProject.activities.ui.main.MainFragment
-import com.gargas.recyclerProject.databinding.FragmentMovieListBinding
+import com.gargas.recyclerProject.databinding.FragmentPostsListBinding
 import com.gargas.recyclerProject.ui.adapter.PostsRxAdapter
 import com.gargas.recyclerProject.ui.viewmodels.GetPostsRxViewModel
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class PostRxRemoteFragment : Fragment() {
     private val mDisposable = CompositeDisposable()
 
-    private lateinit var mBinding: FragmentMovieListBinding
+    private lateinit var mBinding: FragmentPostsListBinding
     private lateinit var mViewModel: GetPostsRxViewModel
     private lateinit var mAdapter: PostsRxAdapter
 
+    @ExperimentalCoroutinesApi
     @ExperimentalPagingApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = FragmentMovieListBinding.inflate(inflater, container, false)
+        mBinding = FragmentPostsListBinding.inflate(inflater, container, false)
 
         val view = mBinding.root
 
